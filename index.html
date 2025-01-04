@@ -91,6 +91,16 @@
         </div>
     </section>
 
+    <!-- Analytics Section -->
+    <section class="py-20 bg-zinc-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Base Amount</h2>
+            <div class="bg-black/50 p-6 rounded-lg border border-gray-800">
+                <canvas id="analyticsChart" class="w-full h-[400px]"></canvas>
+            </div>
+        </div>
+    </section>
+
     <!-- Features Section -->
     <section id="features" class="py-20">
         <div class="container mx-auto px-4">
@@ -151,6 +161,80 @@
             </div>
         </div>
     </footer>
+    <script>
+// Function to fetch trade data and update the chart
+async function fetchAndDisplayTrades() {
+    try {
+        const apiUrl = 'https://horizon.stellar.org/trades?base_asset_type=credit_alphanum4&base_asset_code=BGDAO&base_asset_issuer=GCMEY2I62TDZQAIA4GYWNUDPUKUPOT2O7GAXEM4GMCU5AGK5Y7ILEFQL&counter_asset_type=native';
+        
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error(`Error fetching data: ${response.statusText}`);
+        }
+        const data = await response.json();
+
+        // Extract labels (ledger close time) and data points (base_amount)
+        const labels = data._embedded.records.map(record => {
+            const date = new Date(record.ledger_close_time);
+            return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+        });
+
+        const baseAmounts = data._embedded.records.map(record => parseFloat(record.base_amount));
+
+        // Create or update the chart
+        const ctx = document.getElementById('analyticsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Base Amount (BGDAO)',
+                    data: baseAmounts,
+                    borderColor: '#ffffff',
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            color: '#ffffff'
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#9ca3af'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#9ca3af'
+                        }
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        console.error('Error fetching trade data:', error);
+    }
+}
+
+// Fetch trade data and update the chart
+fetchAndDisplayTrades();
+</script>
 
     <script>
         lucide.createIcons();
