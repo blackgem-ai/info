@@ -17,7 +17,7 @@
                     }
                 }
             }
-        };
+        }
     </script>
 </head>
 <body class="bg-black text-gray-100">
@@ -32,7 +32,8 @@
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#about" class="hover:text-white transition-colors">About</a>
                     <a href="#features" class="hover:text-white transition-colors">Features</a>
-                    <button id="getStartedBtn" class="bg-white text-black hover:bg-gray-200 px-4 py-2 rounded-lg transition-colors">
+                    <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+                    <button class="bg-white text-black hover:bg-gray-200 px-4 py-2 rounded-lg transition-colors">
                         Get Started
                     </button>
                 </div>
@@ -55,7 +56,10 @@
                     Decentralized AI-Driven Venture Capital for the Future
                 </p>
                 <div class="flex flex-col md:flex-row gap-4 justify-center">
-                    <button id="learnMoreBtn" class="border border-white text-white hover:bg-white/10 px-8 py-3 rounded-lg transition-all transform hover:scale-105">
+                    <button class="bg-white text-black hover:bg-gray-200 px-8 py-3 rounded-lg transition-all transform hover:scale-105">
+                        Explore Assets
+                    </button>
+                    <button class="border border-white text-white hover:bg-white/10 px-8 py-3 rounded-lg transition-all transform hover:scale-105">
                         Learn More
                     </button>
                 </div>
@@ -74,7 +78,7 @@
                         Our decentralized platform ensures transparent, data-driven investment decisions while maintaining 
                         the highest standards of security and efficiency.
                     </p>
-                    <a href="https://stellar.expert/explorer/public/asset/BGDAO-GCMEY2I62TDZQAIA4GYWNUDPUKUPOT2O7GAXEM4GMCU5AGK5Y7ILEFQL" class="text-white hover:text-gray-300 transition-colors inline-flex items-center gap-2">
+                    <a href="https://stellar.expert" class="text-white hover:text-gray-300 transition-colors inline-flex items-center gap-2">
                         Learn more about the asset on Stellar Expert
                         <i data-lucide="external-link" class="w-4 h-4"></i>
                     </a>
@@ -116,18 +120,37 @@
         </div>
     </section>
 
-    <!-- Modal -->
-    <div id="tradeModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center hidden z-[100]">
-        <div class="bg-zinc-900 p-8 rounded-lg max-w-md w-full relative">
-            <button id="closeModal" class="absolute top-2 right-2 text-white">&times;</button>
-            <h3 class="text-2xl font-bold mb-4">Trade Black Gem</h3>
-            <p class="text-gray-400 mb-4">Select a platform to trade:</p>
-            <ul class="list-disc pl-5 space-y-2">
-                <li><a href="https://lobstr.co" class="text-white hover:underline" target="_blank">Lobstr</a></li>
-                <li><a href="https://www.freighter.app" class="text-white hover:underline" target="_blank">Freighter</a></li>
-            </ul>
+    <!-- Analytics Section -->
+    <section class="py-20 bg-zinc-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Performance Analytics</h2>
+            <div class="bg-black/50 p-6 rounded-lg border border-gray-800">
+                <canvas id="analyticsChart" class="w-full h-[400px]"></canvas>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12">Get in Touch</h2>
+                <form class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Email</label>
+                        <input type="email" class="w-full px-4 py-2 rounded-lg bg-zinc-900 border border-gray-800 focus:border-white focus:ring-1 focus:ring-white outline-none transition-colors" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Message</label>
+                        <textarea class="w-full px-4 py-2 rounded-lg bg-zinc-900 border border-gray-800 focus:border-white focus:ring-1 focus:ring-white outline-none transition-colors h-32" required></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-white text-black hover:bg-gray-200 px-8 py-3 rounded-lg transition-colors">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="py-12 bg-zinc-900">
@@ -138,41 +161,75 @@
                     <span class="font-bold">BlackGem AI</span>
                 </div>
                 <div class="flex space-x-6">
-                    <a href="https://blackgemai.com/.well-known/stellar.toml" class="text-gray-400 hover:text-white transition-colors">Stellar TOML</a>
-                    <a href="https://stellar.sui.li/blackgemai.com" class="text-gray-400 hover:text-white transition-colors">TOML Checker</a>
+                    <a href="/.well-known/stellar.toml" class="text-gray-400 hover:text-white transition-colors">Stellar TOML</a>
+                    <a href="https://stellar.org/toml-checker" class="text-gray-400 hover:text-white transition-colors">TOML Checker</a>
                 </div>
             </div>
             <div class="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
-                &copy; 2025 BlackGem AI. All rights reserved.
+                © 2025 BlackGem AI. All rights reserved.
             </div>
         </div>
     </footer>
 
     <script>
+        // Initialize Lucide icons
         lucide.createIcons();
 
-        // Smooth scroll for Learn More button
-        document.getElementById('learnMoreBtn').addEventListener('click', () => {
-            document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menuBtn');
+        menuBtn.addEventListener('click', () => {
+            // Add mobile menu implementation here
         });
 
-        // Modal functionality for Get Started button
-        const tradeModal = document.getElementById('tradeModal');
-        const getStartedBtn = document.getElementById('getStartedBtn');
-        const closeModal = document.getElementById('closeModal');
-
-        getStartedBtn.addEventListener('click', () => {
-            tradeModal.classList.remove('hidden');
-        });
-
-        closeModal.addEventListener('click', () => {
-            tradeModal.classList.add('hidden');
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target === tradeModal) {
-                tradeModal.classList.add('hidden');
+        // Analytics chart
+        const ctx = document.getElementById('analyticsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Portfolio Growth',
+                    data: [12, 19, 15, 25, 22, 30],
+                    borderColor: '#ffffff',
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#9ca3af'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#9ca3af'
+                        }
+                    }
+                }
             }
+        });
+
+        // Form validation
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Add form submission logic here
         });
     </script>
 </body>
